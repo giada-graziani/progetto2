@@ -18,13 +18,21 @@ public class Main {
         DataOutputStream out = new DataOutputStream(s.getOutputStream());
 
         //client
-        
-        String stringaRicevuta= in.readLine();//legge la stringa del socket
-        System.out.println("ricevuto: "+stringaRicevuta); //stampa la stringa minuscola
+        String stringaRicevuta;
+        do{
+            stringaRicevuta= in.readLine();//legge la stringa del socket
+            if(stringaRicevuta.equals("!")){
+                s.close();
+                s1.close();
+                System.out.println("...server terminato");
+            }
+            else{
+            System.out.println("ricevuto: "+stringaRicevuta); //stampa la stringa minuscola
 
-        String stringaMaiuscola= stringaRicevuta.toUpperCase(); //trasforma la stringa maiuscola
-        out.writeBytes(stringaMaiuscola + '\n');//invia la stringa dopo averla modificata
-
+            String stringaMaiuscola= stringaRicevuta.toUpperCase(); //trasforma la stringa maiuscola
+            out.writeBytes(stringaMaiuscola + '\n');//invia la stringa dopo averla modificata
+            }
+        }while(!stringaRicevuta.equals("!"));
 
         s.close();
         s1.close();
